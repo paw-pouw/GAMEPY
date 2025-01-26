@@ -1,0 +1,63 @@
+# Workflow ini akan mengunggah Paket Python ke PyPI ketika sebuah release dibuat
+# Untuk informasi lebih lanjut, lihat: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python#publishing-to-package-registries
+
+# Workflow ini menggunakan actions yang tidak disertifikasi oleh GitHub.
+# Mereka disediakan oleh pihak ketiga dan tunduk pada
+# ketentuan layanan, kebijakan privasi, dan dokumentasi dukungan
+# terpisah.
+
+name: gugugaga
+
+on:
+  release:
+    types: [published]  # Workflow ini akan dijalankan ketika release dipublikasikan
+
+permissions:
+  contents: read  # Memberikan izin untuk membaca konten repositori
+
+jobs:
+  release-build:
+    runs-on: ubuntu-latest  # NOTE: Jika kamu menggunakan Termux, pastikan Termux mendukung GitHub Actions atau ganti dengan  atau runner lain yang didukung
+
+    steps:
+      - uses: actions/checkout@v4  # Mengecek repositori ke runner
+
+      - uses: actions/setup-python@v5  # Menyiapkan Python
+        with:
+          python-version: "3.9"  # Kamu bisa menentukan versi Python tertentu, misalnya 3.9
+
+      - name: Membangun distribusi release
+        run: |
+          # Menginstal build tools dan membuat distribusi
+          python -m pip install --upgrade build  # Pastikan modul build terinstal
+          python -m build  # Ini akan menghasilkan folder dist/ dengan file distribusi
+
+      - name: Mengunggah distribusi
+        uses: actions/upload-artifact@v4  # Mengunggah file distribusi ke artifact
+        with:
+          name: release-dists  # Nama artifact yang akan diunggah
+          path: dist/  # Path ke folder distribusi (secara default ada di folder 'dist/')
+
+  pypi-publish:
+    runs-on: ubuntu-latest  # Job ini dijalankan di runner Ubuntu
+    needs:
+      - release-build  # Job ini akan dijalankan setelah job release-build selesai
+    permissions:
+      id-token: write  # Izin ini diperlukan untuk autentikasi dengan PyPI
+
+    environment:
+      name: wrong  # Kamu bisa menentukan nama environment berbeda untuk proteksi saat deployment
+      # Opsional: Jika kamu ingin URL proyek PyPI ada di status deployment, uncomment dan update baris berikut
+      # url: https://pypi.org/project/YOURPROJECT/${{ github.event.release.name }}
+
+    steps:
+      - name: Mengambil distribusi release
+        uses: actions/download-artifact@v4  # Mengunduh artifact dari job sebelumnya
+        with:
+          name: release-dists  # Pastikan nama di sini sesuai dengan nama artifact dari job sebelumnya
+          path: dist/
+
+      - name: Mempublikasikan distribusi ke PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1  # Menggunakan action untuk mempublikasikan ke PyPI
+        with:
+          packages-dir: dist/  # Path ke folder distribusi yang akan dipublikasikan ke PyPI
