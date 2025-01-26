@@ -1,6 +1,5 @@
 # GAMEPY
 
-ASSALAMUALAIKUM,
 SCRIPT INI DIBUAT UNTUK KAMU YANG GABUT🥸
 
 ! SKIBIDI TOILET PENJAWAB PERTANYAAN, CEK KHODAM, CEK BAU KENTUT HANYALAH CANDAAN JANGAN DIBAWA SERIUS !
@@ -17,4 +16,11 @@ git clone https://github.com/paw-pouw/GAMEPY.git
 cd GAMEPY
 python3 run.py
 ```
+
+<a href="https://github.com/paw-pouw/GAMEPY/issues"> LAPORKAN MASALAH</>
+
+<br>
+
+DONASI NGAF 
+
 
