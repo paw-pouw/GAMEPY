@@ -21,6 +21,5 @@ python3 run.py
 
 <br>
 
-DONASI NGAF 
 
 
