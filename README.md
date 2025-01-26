@@ -17,7 +17,7 @@ cd GAMEPY
 python3 run.py
 ```
 
-<a href="https://github.com/paw-pouw/GAMEPY/issues"> LAPORKAN MASALAH</>
+<a href="https://github.com/paw-pouw/GAMEPY/issues"> LAPORKAN MASALAH</a>
 
 <br>
 
