@@ -22,4 +22,21 @@ python3 run.py
 <br>
 
 
+# UPDATE!
+GAMEPY BARU SAJA MENDAPATKAN UPDATE TERBARU PADA RAB, 29 JAN 2025
 
+<h4> Cara Update GAMEPY </h4>
+
+```bash
+rm -rf GAMEPY
+git clone https://github.com/paw-pouw/GAMEPY.git
+
+cd GAMEPY
+python3 run.py
+```
+
+# # Informasi # #
+NAMA : GAMEPY
+UKURAN: 25MB
+AUTHOR: paw-pouw
+<br>
